@@ -1,0 +1,5 @@
+{
+  "name": "Neon Paddle: AI commentator Edition",
+  "description": "A high-performance, retro-futuristic Ping Pong game featuring a real-time AI commentator powered by Google Gemini. Challenge the paddle AI and listen to witty play-by-play analysis.",
+  "requestFramePermissions": []
+}
