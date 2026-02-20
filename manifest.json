@@ -1,15 +1,39 @@
 {
-  "short_name": "pingpong",
-  "name": "ping pong",
+  "short_name": "NeonPaddle",
+  "name": "Neon Paddle: AI commentator Edition",
+  "description": "A high-performance, retro-futuristic Ping Pong game featuring a real-time AI commentator powered by Google Gemini. Challenge the paddle AI and listen to witty play-by-play analysis.",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#020617",
+  "orientation": "portrait",
+  "theme_color": "#0f172a",
   "background_color": "#020617",
+  "categories": ["productivity", "education", "lifestyle"],
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/1160/1160358.png&quot;,
+      "src": "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "screenshot-mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
     }
   ]
 }

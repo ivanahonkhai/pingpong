@@ -19,9 +19,10 @@ const App: React.FC = () => {
   const rallyCount = useRef(0);
 
   const addCommentary = useCallback(async (event: string, isGameOver: boolean = false) => {
-    const text = await getCommentary(event, scores.player, scores.ai, settings.personality, isGameOver);
+    const historyStrings = commentaries.map(c => c.text);
+    const text = await getCommentary(event, scores.player, scores.ai, settings.personality, isGameOver, historyStrings);
     setCommentaries(prev => [{ text, timestamp: Date.now() }, ...prev].slice(0, 5));
-  }, [scores, settings.personality]);
+  }, [scores, settings.personality, commentaries]);
 
   useEffect(() => {
     if (status === GameStatus.GAMEOVER) {
@@ -50,13 +51,14 @@ const App: React.FC = () => {
       const newScores = { ...prev, [winner]: prev[winner] + 1 };
       const event = winner === 'player' ? "Player scored!" : "Opponent scored!";
       
-      getCommentary(event, newScores.player, newScores.ai, settings.personality, false).then(text => {
+      const historyStrings = commentaries.map(c => c.text);
+      getCommentary(event, newScores.player, newScores.ai, settings.personality, false, historyStrings).then(text => {
         setCommentaries(prevC => [{ text, timestamp: Date.now() }, ...prevC].slice(0, 5));
       });
 
       return newScores;
     });
-  }, [settings.personality]);
+  }, [settings.personality, commentaries]);
 
   const handleRally = useCallback((count: number) => {
     rallyCount.current = count;

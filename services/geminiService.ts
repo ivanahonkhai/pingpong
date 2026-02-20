@@ -9,7 +9,8 @@ export const getCommentary = async (
   playerScore: number, 
   opponentScore: number, 
   personality: Personality,
-  isGameOver: boolean = false
+  isGameOver: boolean = false,
+  recentHistory: string[] = []
 ): Promise<string> => {
   try {
     let personalityPrompt = "";
@@ -25,18 +26,23 @@ export const getCommentary = async (
         break;
     }
 
+    const historyContext = recentHistory.length > 0 
+      ? `DO NOT repeat these recent phrases: [${recentHistory.join(", ")}]. ` 
+      : "";
+
     const context = isGameOver 
-      ? `The match is OVER! Final score - Player: ${playerScore}, Opponent: ${opponentScore}. Provide a final summary of the winner's dominance and the loser's performance.`
+      ? `The match is OVER! Final score - Player: ${playerScore}, Opponent: ${opponentScore}. Provide a final summary.`
       : `The player just: ${event}. Current score - Player: ${playerScore}, Opponent: ${opponentScore}. Reaction required.`;
 
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: `${personalityPrompt} 
+      ${historyContext}
       Context: ${context}
-      Limit your response to 20 words maximum. Be punchy and stay in character.`,
+      Limit your response to 15 words maximum. Be punchy, fresh, and DO NOT use the same words twice if possible. Vary your vocabulary significantly.`,
       config: {
-        temperature: 0.9,
-        topP: 0.8,
+        temperature: 1.0, // Increased temperature for more variety
+        topP: 0.9,
         maxOutputTokens: 60,
       }
     });
